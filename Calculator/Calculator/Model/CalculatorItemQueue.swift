@@ -12,21 +12,13 @@ protocol CalculateItem {
 }
 
 struct CalculatorItemQueue<T: CalculateItem> {
-    var inputStack: [T] = []
-    var outputStack: [T] = []
+    var list = List<T>()
     
-    mutating func enqueue(item: T) {
-        inputStack.append(item)
+    mutating func enqueue(node: Node<T>) {
+        list.add(node: node)
     }
     
-    mutating func dequeue() -> T? {
-        if inputStack.isEmpty, outputStack.isEmpty { return nil }
-        
-        if outputStack.isEmpty {
-            outputStack = inputStack.reversed()
-            inputStack.removeAll()
-        }
-        
-        return outputStack.removeLast()
+    mutating func dequeue(node: Node<T>) -> Node<T>? {
+        list.remove(node: node)
     }
 }

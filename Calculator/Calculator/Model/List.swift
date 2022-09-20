@@ -7,21 +7,31 @@
 
 import Foundation
 
-class Node {
-    var value: CalculateItem
+class Node<T>: Equatable  {
+    static func == (lhs: Node<T>, rhs: Node<T>) -> Bool {
+        if lhs.value as? String == rhs.value as? String,
+           lhs.prev == rhs.prev,
+           lhs.next == rhs.next {
+            return true
+        }
+        
+        return false
+    }
+    
+    var value: T
     var prev: Node?
     var next: Node?
     
-    init(value: CalculateItem) {
+    init(value: T) {
         self.value = value
     }
 }
 
-struct List {
-    var front: Node?
-    var rear: Node?
+struct List<T> {
+    var front: Node<T>?
+    var rear: Node<T>?
     
-    mutating func add(node: Node) {
+    mutating func add(node: Node<T>) {
         if rear == nil {
             self.front = node
             self.rear = node
@@ -32,12 +42,25 @@ struct List {
         node.prev = rear
         self.rear = node
     }
-}
-
-struct CalculatorItemQueue2<T: CalculateItem> {
-    var list = List()
     
-    mutating func enqueue(node: Node) {
-        list.add(node: node)
+    mutating func remove(node: Node<T>) -> Node<T>? {
+        if front == nil, rear == nil { return nil }
+        
+        if node == front {
+            node.next?.prev = nil
+            front = node.next
+        }
+        
+        if node == rear {
+            node.prev?.next = nil
+            rear = node.prev
+        }
+        
+        node.prev?.next = node.next
+        node.next?.prev = node.prev
+        
+        return node
     }
 }
+
+
