@@ -38,35 +38,52 @@ final class CalculatorTests: XCTestCase {
         XCTAssertEqual(sut.list.rear, node)
     }
     
-//    func test_dequeue_빈배열에서디큐_nil반환하는지() {
-//        // given
-//        let expected: Item? = nil
-//        
-//        // when
-//        let result = sut.dequeue()
-//        
-//        // then
-//        XCTAssertEqual(result, expected)
-//    }
-//    
-//    func test_dequeue_원소가2개이상일때_1개디큐() {
-//        // given
-//        let firstItem: Item = Item(data: "first item")
-//        let secondItem: Item = Item(data: "second item")
-//        let expectedDequeuedItem = firstItem
-//        let expectedOutputStack: [Item] = [secondItem]
-//        let expectedInputStack: [Item] = []
-//        
-//        // when
-//        sut.enqueue(item: firstItem)
-//        sut.enqueue(item: secondItem)
-//        let dequeued = sut.dequeue()
-//        
-//        // then
-//        XCTAssertEqual(dequeued, expectedDequeuedItem)
-//        XCTAssertEqual(expectedOutputStack, sut.outputStack)
-//        XCTAssertEqual(expectedInputStack, expectedInputStack)
-//    }
+    func test_dequeue_빈배열에서디큐_nil반환하는지() {
+        // given
+        let item: Item = Item(data: "item data")
+        let node: Node = Node<Item>(value: item)
+
+        // when
+        let result = sut.dequeue(node: node)
+
+        // then
+        XCTAssertEqual(result, nil)
+    }
+    
+    func test_1개인큐_1개디큐() {
+        // given
+        let item: Item = Item(data: "item data")
+        let node: Node = Node<Item>(value: item)
+        
+        // when
+        sut.enqueue(node: node)
+        let dequeued = sut.dequeue(node: node)
+        
+        // then
+        XCTAssertEqual(sut.list.front, nil)
+        XCTAssertEqual(sut.list.rear, nil)
+    }
+
+    func test_dequeue_원소가2개이상일때_1개디큐() {
+        // given
+        let firstItem: Item = Item(data: "first item")
+        let secondItem: Item = Item(data: "second item")
+        
+        let firstNode: Node = Node<Item>(value: firstItem)
+        let secondNode: Node = Node<Item>(value: secondItem)
+        
+        let expectedDequeuedNode = firstNode
+
+        // when
+        sut.enqueue(node: firstNode)
+        sut.enqueue(node: secondNode)
+        let dequeued = sut.dequeue(node: firstNode)
+
+        // then
+        XCTAssertEqual(dequeued, expectedDequeuedNode)
+        XCTAssertEqual(sut.list.front, secondNode)
+        XCTAssertEqual(sut.list.rear, secondNode)
+    }
 }
 
 
