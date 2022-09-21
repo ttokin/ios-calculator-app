@@ -24,6 +24,14 @@ class Node<T>: Equatable  {
     
     init(value: T) {
         self.value = value
+        self.prev = nil
+        self.next = nil
+    }
+    
+    init(value: T, prev: Node?, next: Node?) {
+        self.value = value
+        self.prev = prev
+        self.next = next
     }
 }
 
