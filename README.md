@@ -70,3 +70,4 @@ func test_result_0으로_나눌경우_nan반환() {
 ### 7. 참고 링크
 
 [`isNan` 공식문서](https://developer.apple.com/documentation/swift/floatingpoint/isnan)
+[UML 그리는법](https://www.nextree.co.kr/p6753/)
